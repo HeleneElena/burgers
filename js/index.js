@@ -1,10 +1,12 @@
-import {modalProduct,
+import {
+    modalProduct,
     modalClose,
-    catalogList
+    catalogList,
 } from './elements.js';
 
-import { createCardProduct } from './createCardProduct.js';
 import { openModal } from './openModal.js';
+import { createCardProduct } from './createCardProduct.js';
+import { renderListProduct } from './renderListProduct.js';
 
 const product = {
     title: 'бургер Ура',
@@ -20,8 +22,6 @@ openModal(product);
 
 createCardProduct(product);
 
-catalogList.textContent = '';
-
 const card = [
     createCardProduct(product),
     createCardProduct(product),
@@ -32,7 +32,7 @@ catalogList.append(...card);
 
 catalogList.addEventListener('click', (e) => {
     let target = e.target;
-    if (target.closest('.product__title') || target.closest('.product__image')) {
+    if (target.closest('.product__detail') || target.closest('.product__image')) {
         modalProduct.classList.add('modal_open');
         openModal(product);
     }
@@ -40,10 +40,15 @@ catalogList.addEventListener('click', (e) => {
 
 modalClose.addEventListener('click', (e) => {
     let target = e.target;
-    if (target.closest('.modal__close') || target.closest('.modal_product')) {
+    if (target.closest('.modal__close') || target.closest('.modal__main')) {
         modalProduct.classList.remove('modal_open');
     }
 });
+
+const init = () => {
+    renderListProduct();
+};
+init();
 
 
 
