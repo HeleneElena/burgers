@@ -18,17 +18,6 @@ const product = {
     ingredients: ['brot', 'butter', 'chicken'],
 };
 
-openModal(product);
-
-createCardProduct(product);
-
-const card = [
-    createCardProduct(product),
-    createCardProduct(product),
-    createCardProduct(product),
-];
-
-catalogList.append(...card);
 
 catalogList.addEventListener('click', (e) => {
     let target = e.target;

@@ -4,7 +4,8 @@ import {
     modalProductDescription,
     ingredientsCalories,
     ingredientsList,
-    productPriceCount
+    productPriceCount,
+    modalProduct
 } from './elements.js';
 
 export const openModal = (product) => {
@@ -23,4 +24,6 @@ export const openModal = (product) => {
     });
 
     ingredientsList.append(...ingredientsItem);
+
+    modalProduct.classList.add('modal_open');
 };
