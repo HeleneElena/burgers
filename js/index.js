@@ -5,8 +5,8 @@ import {
 } from './elements.js';
 
 import { openModal } from './openModal.js';
-import { createCardProduct } from './createCardProduct.js';
 import { renderListProduct } from './renderListProduct.js';
+import { navigationListController } from './navigationListController.js';
 
 const product = {
     title: 'бургер Ура',
@@ -36,6 +36,7 @@ modalClose.addEventListener('click', (e) => {
 
 const init = () => {
     renderListProduct();
+    navigationListController();
 };
 init();
 

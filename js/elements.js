@@ -14,3 +14,8 @@ export const modalProductTitle = document.querySelector('.modal-product__title')
             ingredientsCalories = document.querySelector('.ingredients__calories'),
             ingredientsList = document.querySelector('.ingredients__list'),
             productPriceCount = document.querySelector('.modal-product__price-count');
+
+// fuer Category
+export const navigationList = document.querySelector('.navigation__list'),
+            navigationItems = document.querySelectorAll('.navigation__button'),
+            catalogTitle = document.querySelector('.catalog__title');
