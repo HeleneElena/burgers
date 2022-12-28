@@ -1,29 +1,28 @@
-import {
+import { API_URL, PREFIX_PRODUCT } from './const.js';
+import { getData } from './getData.js';
+import { 
     modalProductTitle,
     modalProductImage,
     modalProductDescription,
     ingredientsCalories,
     ingredientsList,
     productPriceCount,
-    modalProduct
 } from './elements.js';
 
-export const openModal = (product) => {
+export const openModal = async (id) => {
+    const product = await getData(`${API_URL}${PREFIX_PRODUCT}/${id}`)
     modalProductTitle.textContent = product.title;
-    modalProductImage.src = product.image;
+    modalProductImage.src = `${API_URL}/${product.image}`;
     modalProductDescription.textContent = product.description;
-    ingredientsCalories.textContent = `${product.weight} г, ккал ${product.calories}`;
+    ingredientsCalories.textContent = product.calories;
     productPriceCount.textContent = product.price;
     ingredientsList.textContent = '';
 
-    const ingredientsItem = product.ingredients.map(el => {
+    const ingredientItems = product.ingredients.map(el => {
         const li = document.createElement('li');
         li.classList.add('ingredients__item');
         li.textContent = el;
         return li;
     });
-
-    ingredientsList.append(...ingredientsItem);
-
-    modalProduct.classList.add('modal_open');
+    ingredientsList.append(...ingredientItems);
 };
