@@ -1,12 +1,5 @@
-export const modalProduct = document.querySelector('.modal_product'),
-            modalClose = document.querySelector('.modal__close'),
-            catalogList = document.querySelector('.catalog__list'),
-            productImage = document.querySelector('.product__image');
-
-
 export const modalProductTitle = document.querySelector('.modal-product__title'),
             modalProductImage = document.querySelector('.modal-product__image'),
-            modalProductIngredients = document.querySelector('.modal-product__ingredients'),
             modalProductDescription = document.querySelector('.modal-product__description'),
             ingredientsCalories = document.querySelector('.ingredients__calories'),
             ingredientsList = document.querySelector('.ingredients__list'),
@@ -15,3 +8,6 @@ export const modalProductTitle = document.querySelector('.modal-product__title')
 export const navigationList = document.querySelector('.navigation__list'),
             navigationItems = document.querySelectorAll('.navigation__button'),
             catalogTitle = document.querySelector('.catalog__title');
+
+export const modalProduct = document.querySelector('.modal_product'),
+            catalogList = document.querySelector('.catalog__list');

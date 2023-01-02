@@ -1,28 +1,25 @@
-import { API_URL, PREFIX_PRODUCT } from './const.js';
-import { getData } from './getData.js';
-import { 
+import {
     modalProductTitle,
     modalProductImage,
     modalProductDescription,
     ingredientsCalories,
     ingredientsList,
-    productPriceCount,
+    productPriceCount
 } from './elements.js';
 
-export const openModal = async (id) => {
-    const product = await getData(`${API_URL}${PREFIX_PRODUCT}/${id}`)
+export const openModal = (product) => {
     modalProductTitle.textContent = product.title;
-    modalProductImage.src = `${API_URL}/${product.image}`;
+    modalProductImage.src = product.image;
     modalProductDescription.textContent = product.description;
-    ingredientsCalories.textContent = product.calories;
+    ingredientsCalories.textContent = `${product.weight} г, ккал ${product.calories}`;
     productPriceCount.textContent = product.price;
     ingredientsList.textContent = '';
 
-    const ingredientItems = product.ingredients.map(el => {
+    const ingredientElem = product.ingredients.map(el => {
         const li = document.createElement('li');
-        li.classList.add('ingredients__item');
         li.textContent = el;
         return li;
     });
-    ingredientsList.append(...ingredientItems);
+
+    ingredientsList.append(...ingredientElem);
 };
