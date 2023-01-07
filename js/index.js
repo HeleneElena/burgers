@@ -3,6 +3,7 @@ import { openModal } from './openModal.js';
 import { navigationListController } from './navigationListController.js';
 import { renderListProduct } from "./renderListProduct.js";
 import { cartInit } from './cart.js';
+import { renderCartList } from './renderCartList.js';
 
 const product = {
     title: 'бургер Oppa-pa',
@@ -14,12 +15,10 @@ const product = {
     ingredients: ['brot', 'butter', 'chicken'],
 };
 
-
 catalogList.addEventListener('click', e => {
     const target = e.target;
 
     if (target.closest('.product__image') || target.closest('.product__title')) {
-        modalProduct.classList.add('modal_open');
         const id = target.closest('.product').dataset.idProduct;
         openModal(id);
     } 
@@ -37,8 +36,10 @@ const init = () => {
     renderListProduct();
     navigationListController(renderListProduct);
     cartInit();
+    renderCartList();
 };
 init();
+
 
 
 

@@ -2,7 +2,8 @@ import { API_URL } from "./const.js";
 
 export const createCardProduct = (product) => {
     const li = document.createElement('li');
-    li.classList.add('.catalog__item');
+    li.classList.add('catalog__item');
+
     li.innerHTML = `
         <article class="product" data-id-product=${product.id}>
             <img class="product__image" src="${API_URL}/${product.image}" alt="${product.title}">

@@ -5,7 +5,9 @@ import {
     modalProductDescription,
     ingredientsCalories,
     ingredientsList,
-    productPriceCount
+    productPriceCount,
+    modalProduct,
+    modalProductBtn,
 } from './elements.js';
 import { API_URL, PREFIX_PRODUCT } from './const.js';
 
@@ -23,6 +25,9 @@ export const openModal = async (id) => {
         li.textContent = el;
         return li;
     });
-
     ingredientsList.append(...ingredientElem);
+
+    modalProductBtn.dataset.idProduct = product.id;
+
+    modalProduct.classList.add('modal_open');
 };
