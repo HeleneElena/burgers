@@ -3,7 +3,6 @@ import { openModal } from './openModal.js';
 import { navigationListController } from './navigationListController.js';
 import { renderListProduct } from "./renderListProduct.js";
 import { cartInit } from './cart.js';
-import { renderCartList } from './renderCartList.js';
 
 const product = {
     title: 'бургер Oppa-pa',
@@ -36,7 +35,6 @@ const init = () => {
     renderListProduct();
     navigationListController(renderListProduct);
     cartInit();
-    renderCartList();
 };
 init();
 
