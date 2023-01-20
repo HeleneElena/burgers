@@ -3,57 +3,90 @@ import { catalogList, countAmount, modalProductBtn, orderCount, orderList } from
 import { getData } from "./getData.js";
 
 // bekommen Daten in Korb
-const getCart = () => {
-    const cartList = localStorage.getItem('cart');
-    if (cartList) {
-        return JSON.parse(cartInit);
+const getCart = () => { // получение корзины
+    const cartList = localStorage.getItem('cart');  // список товаров получаю из локалстр
+
+    if (cartList) {  // если первый раз юзер зашел и пусто или нет, если не пустой, то получим массив товаров
+        return JSON.parse(cartList); // распарсить товары
     } else {
-        return [];
+        return []; // иначе вернется пустая корзина
     }
 };
 
 const renderCartList = async () => {
     const cartList = getCart();
-    const product = cartList.find(el => el.id === id);  // dies ist das Produkt, das in den Warenkorb gelegt werden soll
-    if (product) {
+    console.log(cartList);
 
-    } else {
-        
-    }
+    const allProduct = cartList.map(el => el.id); // получаем все id в корзине которые
+    const data = await getData(`${API_URL}${PREFIX_PRODUCT}?list=${allProduct}`);
+
+    const countProduct = cartList.reduce((acc, el) => acc + el.count , 0); // общее кол-во товара в корзине
+    orderCount.textContent = countProduct;
+
+    const cartEl = data.map(el => {
+        const li = document.createElement('li');
+        li.classList.add('order__item');
+        li.dataset.idProduct = el.id;
+
+        const product = cartList.find(cartEl => cartEl.id === el.id);
+
+        li.innerHTML = `
+            <img src="${API_URL}/${el.image}" alt="${el.title}" class="order__image">
+            <div class="order__product">
+                <h3 class="order__product-title">${el.title}</h3>
+                <p class="order__product-weight">${el.weight} г</p>
+                <p class="order__product-price">${el.price} ₽</p>
+            </div>
+            <div class="order__product-count count">
+                <button class="count__minus">-</button>
+                <p class="count__amount">${product.count}</p>
+                <button class="count__plus">+</button>
+            </div>
+        `;
+        return li;
+    });
+    orderList.append(...cartEl);
+
 };
 
-const updateCart = (cartList) => {
-    localStorage.setItem('cart', JSON.stringify(cartList));
+const updateCartList = (cartList) => { // обновить корзину
+    localStorage.setItem('cart', JSON.stringify(cartList)); // приводит в строку объект/товар
     renderCartList();
 };
 
-//zum Warenkorb hinzufügen
-const addCart = (id, count = 1) => {
-    console.log(id, count);
+const addCart = (id, count = 1) => { // добавить в корзину (добавим не весь товар, а  id и количество)
+    const cartList = getCart();
+    const product = cartList.find(el => el.id === id);
+
+    if(product) {
+        product.count += count;
+    } else {
+        cartList.push({id, count});
+    }
+    updateCartList(cartList);
+
 };
 
-//einen Artikel aus dem Warenkorb entfernen
-const removeCart = (id) => {
+const removeCart = (id) => { // удалить из корзины
 
 };
 
-// unsere Events, Ereignis
-const cartController = () => {
-    catalogList.addEventListener('click', ({ target }) => { // Button "Add"
+const cartController = () => { // контрольная функция, где отслеживание событий
+    catalogList.addEventListener('click', ({ target }) => {
         if (target.closest('.product__add')) {
             addCart(target.closest('.product').dataset.idProduct);
         }
     });
 
-    modalProductBtn.addEventListener('click', () => { // Button "Add" in Korb
+    modalProductBtn.addEventListener('click', () => {
         addCart(
             modalProductBtn.dataset.idProduct,
-            parseFloat(countAmount.textContent),
+            parseInt(countAmount.textContent),
         );
     });
 };
 
-// Initialisierung des Warenkorbs
-export const cartInit = () => {
+export const cartInit = () => { // метод запуска всей корзины
     cartController();
+    renderCartList();
 };
